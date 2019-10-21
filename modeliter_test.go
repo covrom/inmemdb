@@ -14,7 +14,7 @@ func (t TestMO) StoreName() string { return "testmo" }
 
 func TestColumnIterator(t *testing.T) {
 	tt := TestMO{}
-	md, _ := NewModelDescription(reflect.TypeOf(t), tt.StoreName())
+	md, _ := NewModelDescription(reflect.TypeOf(tt), tt.StoreName())
 	namefd, _ := md.GetColumnByFieldName("Name")
 
 	mt := NewModelTable(md, 10)
