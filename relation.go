@@ -15,7 +15,6 @@ const (
 	RelationTypeHasOne
 )
 
-// Структура, описывающая вид связей в базе данных.
 type Relation struct {
 	Type                RelationType
 	ForeignKey          string
@@ -24,7 +23,6 @@ type Relation struct {
 	Cascade             bool
 }
 
-// Строковое представление структуры Relation для отладки.
 func (r Relation) String() string {
 	var preload string
 	if r.Preload {
@@ -47,8 +45,6 @@ func (r Relation) String() string {
 	return "<Unknown Relation>"
 }
 
-// ParseStoreTag - разбор тега store.Tag
-// возвращает false если данное отношение нужно игнорировать
 func (r *Relation) ParseTag(tag string) bool {
 	options := strings.Split(tag, ",")
 	for _, option := range options {
