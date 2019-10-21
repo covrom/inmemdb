@@ -10,8 +10,11 @@ type TestMO struct {
 	Name String
 }
 
+func (t TestMO) StoreName() string { return "testmo" }
+
 func TestColumnIterator(t *testing.T) {
-	md, _ := NewModelDescription(reflect.TypeOf(TestMO{}), "testmo")
+	tt := TestMO{}
+	md, _ := NewModelDescription(reflect.TypeOf(t), tt.StoreName())
 	namefd, _ := md.GetColumnByFieldName("Name")
 
 	mt := NewModelTable(md, 10)
