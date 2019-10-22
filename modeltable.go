@@ -189,6 +189,7 @@ func (mt *ModelTable) Len() int                { return len(mt.t) }
 
 func (mt *ModelTable) MarshalJSON() ([]byte, error) {
 	b := GetBuffer()
+	b.Grow(len(mt.t) * 128)
 	defer PutBuffer(b)
 
 	b.WriteByte('[')
