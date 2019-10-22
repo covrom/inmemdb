@@ -186,3 +186,24 @@ func (mt *ModelTable) HasIndex(fd *FieldDescription) bool {
 // IterColumner interface
 func (mt *ModelTable) Key(i int) ModelSortable { return mt.t[i].IDField().(ModelSortable) }
 func (mt *ModelTable) Len() int                { return len(mt.t) }
+
+func (mt *ModelTable) MarshalJSON() ([]byte, error) {
+	b := GetBuffer()
+	defer PutBuffer(b)
+
+	b.WriteByte('[')
+	for i, mo := range mt.t {
+		if i > 0 {
+			b.WriteByte(',')
+		}
+		bel, err := mo.MarshalJSON()
+		if err != nil {
+			return nil, err
+		}
+		b.Write(bel)
+	}
+	b.WriteByte(']')
+	res := b.Bytes()
+
+	return res, nil
+}
